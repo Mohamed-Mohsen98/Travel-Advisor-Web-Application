@@ -1,3 +1,24 @@
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+// Your Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCBUWHm2g9sd9P5ZofIg0zBsN5F0W0I2vM",
+  authDomain: "travel-advisor-cac06.firebaseapp.com",
+  databaseURL: "https://travel-advisor-cac06-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "travel-advisor-cac06",
+  storageBucket: "travel-advisor-cac06.firebasestorage.app",
+  messagingSenderId: "307821978887",
+  appId: "1:307821978887:web:71ce0fb2e25ed8fb0a51a2"
+};
+
+// Initialize Firebase services
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+const auth = getAuth(app);
+
 class UserRegistrationForm {
     constructor() {
         this.form = document.getElementById('registrationForm');
@@ -123,21 +144,40 @@ class UserRegistrationForm {
         }
     }
     
-    submit() {
-        // In a real application, you would send the data to a server here
-        console.log('Form submitted successfully!');
-        console.log('Username:', this.usernameInput.value.trim());
-        console.log('Email:', this.emailInput.value.trim());
-        
-        // Reset form after submission
-        this.form.reset();
-        
-        // Show success message
-        alert('Registration successful! Welcome to Travel Advisor.');
+    async submit() {
+        const username = this.usernameInput.value.trim();
+        const email = this.emailInput.value.trim();
+        const password = this.passwordInput.value;
+
+        try {
+            // 1. Create authenticated user
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const userId = userCredential.user.uid;
+            
+            // 2. Store additional user data
+            await set(ref(database, 'users/' + userId), {
+                username: username,
+                email: email,
+                createdAt: new Date().toISOString()
+            });
+            
+            alert('Registration successful! Welcome to Travel Advisor.');
+            this.form.reset();
+            
+        } catch (error) {
+            console.error('Registration error:', error);
+            
+            // Preserve your original error handling approach
+            if (error.code === 'auth/email-already-in-use') {
+                document.getElementById('email-error').textContent = 'This email is already registered.';
+            } else {
+                alert('Registration failed: ' + error.message);
+            }
+        }
     }
 }
 
-// Initialize the form when the DOM is fully loaded
+// Initialize the form when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new UserRegistrationForm();
 });
