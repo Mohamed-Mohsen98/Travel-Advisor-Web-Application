@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Travel Advisor</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="bookings.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-main {
+            display: flex;
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 40px auto 40px auto;
+            padding: 0 20px;
+        }
+        .profile-info-card, .profile-bookings-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 2rem 1.5rem;
+        }
+        .profile-info-card {
+            flex: 1 1 300px;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid #e0e0e0;
+        }
+        .profile-info-card h2 {
+            margin: 0.5rem 0 0.2rem 0;
+            font-size: 1.4rem;
+        }
+        .profile-info {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .profile-info label {
+            display: block;
+            font-weight: 600;
+            margin-top: 0.7rem;
+            color: #555;
+        }
+        .profile-info span {
+            display: block;
+            margin-top: 0.2rem;
+            color: #222;
+        }
+        .profile-bookings-card {
+            flex: 2 1 600px;
+            min-width: 0;
+        }
+        .profile-bookings-card h2 {
+            margin-bottom: 1.2rem;
+        }
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .bookings-table th, .bookings-table td {
+            padding: 0.7rem 0.5rem;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        .bookings-table th {
+            background: #f7f7f7;
+            font-weight: 700;
+        }
+        .bookings-table tr:last-child td {
+            border-bottom: none;
+        }
+        @media (max-width: 900px) {
+            .profile-main { flex-direction: column; gap: 1.5rem; }
+            .profile-info-card, .profile-bookings-card { max-width: 100%; }
+        }
+    </style>
+</head>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="header-left">
+                <i class="fa-solid fa-plane-departure"></i>
+                <span class="brand">Travel Advisor</span>
+            </div>
+            <nav class="nav-bar">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="destinations.html" class="nav-link">Destinations</a>
+                <a href="bookings.html" class="nav-link">Bookings</a>
+                <a href="#" class="nav-link active">Profile</a>
+            </nav>
+            <div class="header-right">
+                <a href="profile.html" class="header-icon" title="Profile"><i class="fa-regular fa-user"></i></a>
+                <a href="#logout" class="header-icon" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
+        </div>
+    </header>
+    <main class="profile-main" style="flex:1 0 auto;display:flex;justify-content:center;align-items:center;min-height:0;">
+        <section class="profile-info-card card">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="profile-avatar">
+            <h2>John Doe</h2>
+            <div class="profile-info">
+                <label>Email:</label>
+                <span>john.doe@email.com</span>
+                <label>Phone:</label>
+                <span>+1 555-123-4567</span>
+                <label>Member Since:</label>
+                <span>Jan 2023</span>
+            </div>
+        </section>
+        <section class="profile-bookings-card card">
+            <h2><i class="fa-solid fa-suitcase-rolling"></i> My Bookings</h2>
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Departure</th>
+                        <th>Return</th>
+                        <th>Passengers</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Paris</td>
+                        <td>2024-07-10</td>
+                        <td>2024-07-20</td>
+                        <td>2 Adults</td>
+                        <td><span style="color:green;font-weight:600;">Confirmed</span></td>
+                    </tr>
+                    <tr>
+                        <td>Tokyo</td>
+                        <td>2024-08-05</td>
+                        <td>2024-08-18</td>
+                        <td>1 Adult, 1 Child</td>
+                        <td><span style="color:orange;font-weight:600;">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>Rome</td>
+                        <td>2024-09-01</td>
+                        <td>2024-09-10</td>
+                        <td>3 Adults</td>
+                        <td><span style="color:green;font-weight:600;">Confirmed</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer class="main-footer" style="flex-shrink:0;">
+        <div class="container footer-container">
+            <div class="footer-left footer-brand">
+                <i class="fa-solid fa-plane-departure"></i> Travel Advisor
+            </div>
+            <div class="footer-center footer-links">
+                <a href="home.html" class="footer-link">Home</a>
+                <a href="destinations.html" class="footer-link">Destinations</a>
+                <a href="bookings.html" class="footer-link">Bookings</a>
+                <a href="profile.html" class="footer-link active">Profile</a>
+            </div>
+            <div class="footer-right footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-info">&copy; 2024 Travel Advisor. All rights reserved.</div>
+    </footer>
+</body>
+</html> 
