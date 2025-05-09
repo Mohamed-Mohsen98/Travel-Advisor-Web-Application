@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Your Experience</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="Rate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="main-header"></div>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="header-left">
+                <i class="fa-solid fa-plane-departure"></i>
+                <span class="brand">Travel Advisor</span>
+            </div>
+            <nav class="nav-bar">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="destinations.html" class="nav-link">Destinations</a>
+                <a href="bookings.html" class="nav-link">Bookings</a>
+            </nav>
+            <div class="header-right">
+                <a href="#profile" class="header-icon" title="Profile"><i class="fa-regular fa-user"></i></a>
+                <a href="#logout" class="header-icon" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="rate-container">
+        <h1 class="rate-title">Rate Your Experience</h1>
+        <div class="stars-container">
+            <i class="fas fa-star star" data-rating="1"></i>
+            <i class="fas fa-star star" data-rating="2"></i>
+            <i class="fas fa-star star" data-rating="3"></i>
+            <i class="fas fa-star star" data-rating="4"></i>
+            <i class="fas fa-star star" data-rating="5"></i>
+        </div>
+        <textarea class="comment-box" placeholder="Enter your comment (optional)..."></textarea>
+        <button class="submit-btn">Submit Rating</button>
+        <input type="hidden" id="selected-rating" value="0">
+        
+        <!-- Loading indicator (hidden by default) -->
+        <div id="loading-indicator" style="display: none; text-align: center; margin-top: 15px;">
+            <i class="fas fa-spinner fa-spin"></i> Submitting...
+        </div>
+    </div>
+
+    <!-- Update script tags -->
+    <script src="header.js"></script>
+    <script type="module" src="Rate.js"></script>
+</body>
+</html>
