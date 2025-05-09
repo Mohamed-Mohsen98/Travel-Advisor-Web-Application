@@ -145,36 +145,39 @@ class UserRegistrationForm {
     }
     
     async submit() {
-        const username = this.usernameInput.value.trim();
-        const email = this.emailInput.value.trim();
-        const password = this.passwordInput.value;
+    const username = this.usernameInput.value.trim();
+    const email = this.emailInput.value.trim();
+    const password = this.passwordInput.value;
 
-        try {
-            // 1. Create authenticated user
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const userId = userCredential.user.uid;
-            
-            // 2. Store additional user data
-            await set(ref(database, 'users/' + userId), {
-                username: username,
-                email: email,
-                createdAt: new Date().toISOString()
-            });
-            
-            alert('Registration successful! Welcome to Travel Advisor.');
-            this.form.reset();
-            
-        } catch (error) {
-            console.error('Registration error:', error);
-            
-            // Preserve your original error handling approach
-            if (error.code === 'auth/email-already-in-use') {
-                document.getElementById('email-error').textContent = 'This email is already registered.';
-            } else {
-                alert('Registration failed: ' + error.message);
-            }
+    try {
+        // 1. Create authenticated user
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const userId = userCredential.user.uid;
+        
+        // 2. Store additional user data
+        await set(ref(database, 'users/' + userId), {
+            username: username,
+            email: email,
+            createdAt: new Date().toISOString()
+        });
+        
+        //alert('Registration successful! Welcome to Travel Advisor.');
+        this.form.reset();
+        
+        // Redirect to home page
+        window.location.href = '/home.html'; // Replace '/home.html' with the actual path to your home page
+        
+    } catch (error) {
+        console.error('Registration error:', error);
+        
+        // Preserve your original error handling approach
+        if (error.code === 'auth/email-already-in-use') {
+            document.getElementById('email-error').textContent = 'This email is already registered.';
+        } else {
+            alert('Registration failed: ' + error.message);
         }
     }
+}
 }
 
 // Initialize the form when DOM is loaded
