@@ -17,7 +17,7 @@ body {
 h1 {
     color: #21795b;
     font-family: 'Poppins', Arial, sans-serif;
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 32px;
     font-size: 2.2rem;
     font-weight: 700;
@@ -164,68 +164,3 @@ h1 {
     text-align: center;
 }
 
-/* Header Styles */
-.main-header {
-    width: 100%;
-    height: 64px;
-    background: #21795b;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1100;
-}
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.header-left .fa-plane-departure {
-    color: #fff;
-    font-size: 2rem;
-    margin-right: 6px;
-}
-.brand {
-    color: #fff;
-    font-size: 1.6rem;
-    font-family: 'Poppins', Arial, sans-serif;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-}
-.header-right .fa-user,
-.header-right .fa-arrow-right-from-bracket {
-    color: #000;
-    background: #fff;
-    border-radius: 50%;
-    font-size: 1.35rem;
-    padding: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-}
-.header-right .fa-user:hover,
-.header-right .fa-arrow-right-from-bracket:hover {
-    background: #21795b;
-    color: #fff;
-}
-
-.field-error {
-    color: #e74c3c;
-    font-size: 0.98rem;
-    min-height: 18px;
-    margin-bottom: 2px;
-    text-align: left;
-    transition: height 0.2s;
-    overflow: hidden;
-    display: block;
-    word-break: break-word;
-} 
