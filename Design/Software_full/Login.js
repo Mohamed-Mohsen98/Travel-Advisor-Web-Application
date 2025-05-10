@@ -9,7 +9,7 @@ const firebaseConfig = {
   authDomain: "travel-advisor-cac06.firebaseapp.com",
   databaseURL: "https://travel-advisor-cac06-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "travel-advisor-cac06",
-  storageBucket: "travel-advisor-cac06.firebasestorage.app",
+  storageBucket: "travel-advisor-cac06.appspot.com",
   messagingSenderId: "307821978887",
   appId: "1:307821978887:web:71ce0fb2e25ed8fb0a51a2"
 };
@@ -25,79 +25,74 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const popup = document.getElementById("loginSuccessPopup");
 
-// Email format regex (standard)
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+class Login {
+  #email;
+  #password;
 
+  constructor(email, password) {
+    this.#email = email.trim();
+    this.#password = password;
+  }
 
-loginForm.addEventListener("submit", async (e) => {
+  validateMail() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return this.#email && emailRegex.test(this.#email);
+  }
+
+  validatePass() {
+    return this.#password && this.#password.length <= 60;
+  }
+
+  async submit() {
+    if (!this.validateMail()) {
+      alert("Invalid or missing email.");
+      return;
+    }
+
+    if (!this.validatePass()) {
+      alert("Invalid or missing password.");
+      return;
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, this.#email, this.#password);
+      const userId = userCredential.user.uid;
+      const userSnapshot = await get(ref(database, 'users/' + userId));
+
+      if (userSnapshot.exists()) {
+        popup.classList.remove("hidden");
+        setTimeout(() => {
+          popup.classList.add("hidden");
+          window.location.href = "home.html";
+        }, 2000);
+      } else {
+        alert("User data not found in the database.");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      switch (error.code) {
+        case "auth/user-not-found":
+          alert("User not found.");
+          break;
+        case "auth/wrong-password":
+          alert("Incorrect password.");
+          break;
+        case "auth/too-many-requests":
+          alert("Too many failed attempts. Please try again later.");
+          break;
+        default:
+          alert("Login failed: " + error.message);
+      }
+    }
+  }
+}
+
+// Event listener
+loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
-
-  let email = emailInput.value.trim();
+  const email = emailInput.value;
   const password = passwordInput.value;
 
-  // Trimmed email update for input field
-  emailInput.value = email;
-
-  // Validation checks
-  if (!email) {
-    alert("Email field is required.");
-    return;
-  }
-
-  if (email !== emailInput.value) {
-    alert("Leading/trailing spaces removed from email.");
-    emailInput.value = email; // auto-correct the email field
-    return;
-  }
-
-  if (!emailRegex.test(email)) {
-    alert("Invalid email address.");
-    return;
-  }
-
-  if (!password) {
-    alert("Password field is required.");
-    return;
-  }
-
-  if (password.length > 60) {
-    alert("Password is too long.");
-    return;
-  }
-
-  try {
-    // Sign in with Firebase
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const userId = userCredential.user.uid;
-
-    // Get user data from database
-    const userSnapshot = await get(ref(database, 'users/' + userId));
-
-    if (userSnapshot.exists()) {
-      // Show success popup
-      popup.classList.remove("hidden");
-      setTimeout(() => {
-        popup.classList.add("hidden");
-        window.location.href = "home.html"; // redirect
-      }, 2000);
-    } else {
-      alert("User data not found in the database.");
-    }
-
-  } catch (error) {
-    console.error("Login error:", error);
-    switch (error.code) {
-      case "auth/user-not-found":
-        alert("User not found.");
-        break;
-      case "auth/wrong-password":
-        alert("Incorrect password.");
-        break;
-      case "auth/too-many-requests":
-        alert("Too many failed attempts. Please try again later.");
-        break;
-      default:
-        alert("Login failed: " + error.message);
-    }
-  }
+  const login = new Login(email, password);
+  login.submit();
 });
