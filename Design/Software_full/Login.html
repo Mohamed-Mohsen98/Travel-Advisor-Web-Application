@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel Advisor Login</title>
+  <link rel="stylesheet" href="Login.css" />
+  <style>
+    #loginSuccessPopup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4caf50;
+      color: white;
+      padding: 1rem;
+      border-radius: 5px;
+      display: none;
+    }
+    #loginSuccessPopup.show {
+      display: block;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      user-select: none;
+    }
+    input[type="password"], input[type="text"] {
+      padding-right: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-section">
+      <div class="icon">✈️</div>
+      <h1>Travel Advisor</h1>
+    </div>
+    <div class="right-section">
+      <div class="welcome-box">
+        <h2>Welcome back</h2>
+      </div>
+      <h3>Login your account</h3>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Enter your email" required />
+
+        <div class="password-wrapper">
+          <input type="password" id="password" placeholder="Enter your password" required />
+          <span id="togglePassword" class="toggle-password">👁️</span>
+        </div>
+
+        <p>You don’t have an account?<br><a href="Registration.html">Register Now!</a></p>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="loginSuccessPopup">Login Successful! Redirecting...</div>
+
+  <script>
+    // Toggle password visibility
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordField = document.getElementById('password');
+      const type = passwordField.type === 'password' ? 'text' : 'password';
+      passwordField.type = type;
+
+      // Change icon based on visibility
+      this.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+  </script>
+
+  <script type="module" src="Login.js"></script>
+</body>
+</html>

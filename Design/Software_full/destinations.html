@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations | Travel Advisor</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="header.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="header-left">
+                <i class="fa-solid fa-plane-departure"></i>
+                <span class="brand">Travel Advisor</span>
+            </div>
+            <nav class="nav-bar">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link active">Destinations</a>
+                <a href="bookings.html" class="nav-link">Bookings</a>
+            </nav>
+            <div class="header-right">
+                <a href="#profile" class="header-icon" title="Profile"><i class="fa-regular fa-user"></i></a>
+                <a href="#logout" class="header-icon" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <section class="gallery-section" style="margin-top:15px;">
+        <h2>All Destinations</h2>
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Cards will be dynamically injected here from Firebase -->
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-left footer-brand">
+                <i class="fa-solid fa-plane-departure"></i> Travel Advisor
+            </div>
+            <div class="footer-center footer-links">
+                <a href="home.html" class="footer-link">Home</a>
+                <a href="destinations.html" class="footer-link">Destinations</a>
+                <a href="bookings.html" class="footer-link">Bookings</a>
+            </div>
+            <div class="footer-right footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-info">&copy; 2024 Travel Advisor. All rights reserved.</div>
+    </footer>
+
+    <!-- Link to destinations.js -->
+    <script type="module" src="destinations.js"></script>
+</body>
+</html>
