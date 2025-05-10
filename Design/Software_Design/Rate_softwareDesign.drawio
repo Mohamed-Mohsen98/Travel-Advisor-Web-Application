@@ -1,1 +1,61 @@
-<mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/></root></mxGraphModel>
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" version="27.0.3">
+  <diagram name="Page-1" id="Ww7nAzzWmjz_CRIwrUs1">
+    <mxGraphModel dx="1042" dy="535" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fBglEFtKHpevoW1j6U3d-1" value="Submit(): RedirectToHome" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="240" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-2" value="Value: Int&lt;div&gt;Comment: String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="180" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-3" value="Rate" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="120" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-4" value="&lt;b style=&quot;forced-color-adjust: none; color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(236, 236, 236); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;u style=&quot;forced-color-adjust: none;&quot;&gt;&lt;font style=&quot;forced-color-adjust: none; font-size: 18px;&quot;&gt;Rate Class&lt;/font&gt;&lt;/u&gt;&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="30" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-5" value="Home Page" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="457" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-6" value="Rate" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="457" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-7" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="270" y="617" as="sourcePoint" />
+            <mxPoint x="270" y="517" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-8" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="580" y="607" as="sourcePoint" />
+            <mxPoint x="580" y="517" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-9" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="555" as="sourcePoint" />
+            <mxPoint x="260" y="565" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-10" value="Save data" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="180" y="525" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-11" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="350" y="597" as="sourcePoint" />
+            <mxPoint x="530" y="599" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-12" value="Save rate (1-5) stars and comment (optional)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="567" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fBglEFtKHpevoW1j6U3d-13" value="&lt;b&gt;&lt;u&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Rate_Sequence_Diagram01&lt;/font&gt;&lt;/u&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="299" y="350" width="260" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
