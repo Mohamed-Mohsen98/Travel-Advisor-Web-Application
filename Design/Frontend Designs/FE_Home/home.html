@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Advisor - Home</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="header.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="header-left">
+                <i class="fa-solid fa-plane-departure"></i>
+                <span class="brand">Travel Advisor</span>
+            </div>
+            <nav class="nav-bar">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="destinations.html" class="nav-link">Destinations</a>
+                <a href="bookings.html" class="nav-link">Bookings</a>
+            </nav>
+            <div class="header-right">
+                <a href="#profile" class="header-icon" title="Profile"><i class="fa-regular fa-user"></i></a>
+                <a href="#logout" class="header-icon" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
+        </div>
+    </header>
+    <section class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay">
+            <h1>Explore the World with Ease</h1>
+            <button class="cta-btn" id="startJourneyBtn">Start Your Journey</button>
+        </div>
+    </section>
+    <section class="gallery-section" id="gallery">
+        <h2>Top Destinations</h2>
+        <div class="gallery-grid">
+            <div class="gallery-card">
+                <img src="photos/paris.png" alt="Paris" title="Paris">
+                <div class="gallery-label">Paris</div>
+                <a href="bookings.html?destination=Paris" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/rome.png" alt="Rome" title="Rome">
+                <div class="gallery-label">Rome</div>
+                <a href="bookings.html?destination=Rome" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/amsterdam.png" alt="Amsterdam" title="Amsterdam">
+                <div class="gallery-label">Amsterdam</div>
+                <a href="bookings.html?destination=Amsterdam" class="book-btn">Book Now</a>
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-left footer-brand">
+                <i class="fa-solid fa-plane-departure"></i> Travel Advisor
+            </div>
+            <div class="footer-center footer-links">
+                <a href="home.html" class="footer-link">Home</a>
+                <a href="destinations.html" class="footer-link">Destinations</a>
+                <a href="bookings.html" class="footer-link">Bookings</a>
+            </div>
+            <div class="footer-right footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-info">&copy; 2024 Travel Advisor. All rights reserved.</div>
+    </footer>
+    <script src="home.js"></script>
+</body>
+</html> 
