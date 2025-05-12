@@ -1,104 +1,118 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const addUserBtn = document.getElementById('addUserBtn');
-    const modalContainer = document.getElementById('modalContainer');
+// Firebase imports
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-    addUserBtn.addEventListener('click', showAddUserModal);
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyCBUWHm2g9sd9P5ZofIg0zBsN5F0W0I2vM",
+  authDomain: "travel-advisor-cac06.firebaseapp.com",
+  databaseURL: "https://travel-advisor-cac06-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "travel-advisor-cac06",
+  storageBucket: "travel-advisor-cac06.appspot.com",
+  messagingSenderId: "307821978887",
+  appId: "1:307821978887:web:71ce0fb2e25ed8fb0a51a2"
+};
 
-    function showAddUserModal() {
-        modalContainer.innerHTML = `
-            <div class="modal-overlay">
-                <div class="modal">
-                    <h2>Add User</h2>
-                    <form id="addUserForm">
-                        <div class="field-error" id="error-username"></div>
-                        <label>Username:<input type="text" name="username" required placeholder="Enter your username"></label><br>
-                        <div class="field-error" id="error-email"></div>
-                        <label>Email:<input type="email" name="email" required placeholder="Enter your email"></label><br>
-                        <div class="field-error" id="error-password"></div>
-                        <label>Password:<input type="password" name="password" required placeholder="Choose a password"></label><br>
-                        <div class="field-error" id="error-confirmPassword"></div>
-                        <label>Confirm Password:<input type="password" name="confirmPassword" required placeholder="Confirm your password"></label><br>
-                        <div class="modal-actions">
-                            <button type="submit">Add</button>
-                            <button type="button" id="cancelBtn">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        `;
-        document.getElementById('cancelBtn').onclick = closeModal;
-        document.getElementById('addUserForm').onsubmit = handleAddUserSubmit;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const addUserBtn = document.getElementById('addUserBtn');
+  const userModal = document.getElementById('userModal');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const form = document.getElementById('registrationForm');
+
+  // Show modal
+  addUserBtn.addEventListener('click', () => {
+    userModal.style.display = 'block';
+  });
+
+  // Hide modal
+  cancelBtn.addEventListener('click', () => {
+    userModal.style.display = 'none';
+    form.reset();
+    clearErrors();
+  });
+
+  // Clear error messages
+  function clearErrors() {
+    ["username", "email", "password", "confirmPassword"].forEach(id => {
+      document.getElementById(`${id}-error`).textContent = '';
+    });
+  }
+
+  // Form submit
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    clearErrors();
+
+    const username = form.username.value.trim();
+    const email = form.email.value.trim();
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+
+    let hasError = false;
+
+    // Validation
+    if (!username) {
+      document.getElementById('username-error').textContent = 'This field is required.';
+      hasError = true;
+    } else if (!/^[a-zA-Z]+$/.test(username)) {
+      document.getElementById('username-error').textContent = 'Invalid username.';
+      hasError = true;
     }
 
-    function closeModal() {
-        modalContainer.innerHTML = '';
+    if (!email) {
+      document.getElementById('email-error').textContent = 'This field is required.';
+      hasError = true;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('email-error').textContent = 'Please enter a valid email address.';
+      hasError = true;
     }
 
-    function handleAddUserSubmit(e) {
-        e.preventDefault();
-        const form = e.target;
-        const username = form.username.value.trim();
-        const email = form.email.value.trim();
-        const password = form.password.value;
-        const confirmPassword = form.confirmPassword.value;
-        // Clear all field errors
-        ["username", "email", "password", "confirmPassword"].forEach(field => {
-            document.getElementById(`error-${field}`).textContent = '';
-        });
-        let hasError = false;
-        // 1. All fields required
-        if (!username) {
-            document.getElementById('error-username').textContent = 'This field is required.';
-            hasError = true;
-        }
-        if (!email) {
-            document.getElementById('error-email').textContent = 'This field is required.';
-            hasError = true;
-        }
-        if (!password) {
-            document.getElementById('error-password').textContent = 'This field is required.';
-            hasError = true;
-        }
-        if (!confirmPassword) {
-            document.getElementById('error-confirmPassword').textContent = 'This field is required.';
-            hasError = true;
-        }
-        // 2. Username validation (only a-z, A-Z)
-        if (username && !/^[a-zA-Z]+$/.test(username)) {
-            document.getElementById('error-username').textContent = 'Invalid username.';
-            hasError = true;
-        }
-        // 3. Email validation (simple pattern)
-        if (email && !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-            document.getElementById('error-email').textContent = 'Please enter a valid email address (e.g., example@domain.com).';
-            hasError = true;
-        }
-        // 4. Password validation
-        if (password && (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(password))) {
-            document.getElementById('error-password').textContent = 'Your password must be at least 8 characters long and include at least one special character (e.g., ! @ # $ %).';
-            hasError = true;
-        }
-        // 5. Confirm password
-        if (password && confirmPassword && password !== confirmPassword) {
-            document.getElementById('error-confirmPassword').textContent = 'Passwords do not match.';
-            hasError = true;
-        }
-        if (hasError) return;
-        // If all validations pass
-        addUser({ username, email, password });
-        closeModal();
+    if (!password) {
+      document.getElementById('password-error').textContent = 'This field is required.';
+      hasError = true;
+    } else if (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      document.getElementById('password-error').textContent = 'Password must be at least 8 characters and include a special character.';
+      hasError = true;
     }
 
-    // Stub function for adding user
-    function addUser(data) {
-        console.log('Add User:', data);
-        // Example fetch call:
-        // fetch('/api/users', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(data)
-        // })
-        // .then(res => res.json())
-        // .then(result => console.log(result));
+    if (!confirmPassword) {
+      document.getElementById('confirmPassword-error').textContent = 'This field is required.';
+      hasError = true;
+    } else if (password !== confirmPassword) {
+      document.getElementById('confirmPassword-error').textContent = 'Passwords do not match.';
+      hasError = true;
     }
-}); 
+
+    if (hasError) return;
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userId = userCredential.user.uid;
+
+      await set(ref(database, 'users/' + userId), {
+        username: username,
+        email: email,
+        role: "User",
+        createdAt: new Date().toISOString()
+      });
+
+      alert("User registered successfully!");
+      form.reset();
+      userModal.style.display = 'none';
+    } catch (error) {
+      console.error('Firebase error:', error);
+      if (error.code === 'auth/email-already-in-use') {
+        document.getElementById('email-error').textContent = 'This email is already registered.';
+      } else {
+        alert('Registration failed: ' + error.message);
+      }
+    }
+  });
+});
