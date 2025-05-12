@@ -60,10 +60,20 @@ class Login {
       const userSnapshot = await get(ref(database, 'users/' + userId));
 
       if (userSnapshot.exists()) {
+        const userData = userSnapshot.val();
+        const userRole = userData.role;
+
         popup.classList.remove("hidden");
+
         setTimeout(() => {
           popup.classList.add("hidden");
-          window.location.href = "home.html";
+
+          // Redirect based on role
+          if (userRole === "Admin") {
+            window.location.href = "admin.html";
+          } else {
+            window.location.href = "home.html";
+          }
         }, 2000);
       } else {
         alert("User data not found in the database.");
