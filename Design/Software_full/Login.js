@@ -23,6 +23,10 @@ const database = getDatabase(app);
 const loginForm = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
+
+sessionStorage.setItem('isLoggedIn', 'true');
+
+
 const popup = document.getElementById("loginSuccessPopup");
 
 class Login {
