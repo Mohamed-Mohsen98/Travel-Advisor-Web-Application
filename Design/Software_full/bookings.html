@@ -1,137 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookings</title>
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="bookings.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="header.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookings</title>
+  <link rel="stylesheet" href="bookings.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container header-container">
-            <div class="header-left">
-                <i class="fa-solid fa-plane-departure"></i>
-                <span class="brand">Travel Advisor</span>
-            </div>
-            <nav class="nav-bar">
-                <a href="home.html" class="nav-link">Home</a>
-                <a href="destinations.html" class="nav-link">Destinations</a>
-                <a href="#" class="nav-link active">Bookings</a>
-                <a href="#rate" class="nav-link">Rate</a>
-            </nav>
-            <div class="header-right">
-                <a href="profile.html" class="header-icon" title="Profile"><i class="fa-regular fa-user"></i></a>
-                <a href="#logout" class="header-icon" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-            </div>
-        </div>
-    </header>
-    <div class="progress-indicator">
-        <div class="step active">1. Booking Info</div>
-        <div class="step">2. Review</div>
-        <div class="step">3. Done</div>
+  <header class="main-header">
+    <div class="header-left">
+      <i class="fa-solid fa-plane-departure"></i>
+      <span class="brand">Travel Advisor</span>
     </div>
-    <main class="booking-main" id="bookingMain">
-        <section class="booking-form-section" id="step-booking-info">
-            <form id="bookingForm">
-                <div class="card">
-                    <h2><i class="fa-solid fa-location-dot"></i> Destination & Dates</h2>
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-plane"></i> Departure City
-                            <input type="text" name="departureCity" placeholder="From..." autocomplete="off">
-                        </label>
-                        <label><i class="fa-solid fa-location-arrow"></i> Destination City
-                            <input type="text" name="destinationCity" placeholder="To..." autocomplete="off">
-                        </label>
-                    </div>
-                    <div class="form-group trip-type-group">
-                        <span>Trip Type:</span>
-                        <label><input type="radio" name="tripType" value="oneway" checked> One-way</label>
-                        <label><input type="radio" name="tripType" value="roundtrip"> Round-trip</label>
-                    </div>
-                    <div class="form-group date-group">
-                        <label><i class="fa-solid fa-calendar-days"></i> Departure Date
-                            <input type="date" name="departureDate">
-                        </label>
-                        <label class="return-date-label"><i class="fa-solid fa-calendar-days"></i> Return Date
-                            <input type="date" name="returnDate">
-                        </label>
-                    </div>
-                </div>
-                <div class="card">
-                    <h2><i class="fa-solid fa-users"></i> Passengers & Class</h2>
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-user"></i> Adults
-                            <select name="adults">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </label>
-                        <label><i class="fa-solid fa-child"></i> Children
-                            <select name="children">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </label>
-                        <label><i class="fa-solid fa-baby"></i> Infants
-                            <select name="infants">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fa-solid fa-couch"></i> Class
-                            <select name="travelClass">
-                                <option value="economy">Economy</option>
-                                <option value="business">Business</option>
-                                <option value="first">First</option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-            </form>
-        </section>
-        <aside class="booking-summary-section" id="bookingSummarySection">
-            <div class="card summary-card">
-                <h2><i class="fa-solid fa-receipt"></i> Booking Summary</h2>
-                <div class="summary-details" id="summaryDetails">
-                    <!-- JS will fill this -->
-                </div>
-                <div class="summary-total">
-                    <span>Total Estimate:</span>
-                    <span id="totalPrice">$0.00</span>
-                </div>
-                <button class="confirm-btn" id="confirmBookingBtn">Continue</button>
-            </div>
-        </aside>
-    </main>
-    <footer class="main-footer">
-        <div class="container footer-container">
-            <div class="footer-left footer-brand">
-                <i class="fa-solid fa-plane-departure"></i> Travel Advisor
-            </div>
-            <div class="footer-center footer-links">
-                <a href="home.html" class="footer-link">Home</a>
-                <a href="destinations.html" class="footer-link">Destinations</a>
-                <a href="bookings.html" class="footer-link">Bookings</a>
-            </div>
-            <div class="footer-right footer-social">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            </div>
+    <nav class="nav-bar">
+      <a href="home.html" class="nav-link">Home</a>
+      <a href="bookings.html" class="nav-link active">Bookings</a>
+      <a href="#" class="nav-link">Profile</a>
+      <a href="rate.html" class="nav-link">Rate</a>
+    </nav>
+    <div class="header-right">
+      <i class="fa-regular fa-user"></i>
+     <a href="Login.html">
+  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+</a>
+
+    </div>
+  </header>
+
+  <div class="progress-indicator">
+    <div class="step active">1. Booking Info</div>
+    <div class="step">2. Review</div>
+    <div class="step">3. Done</div>
+  </div>
+
+  <main class="booking-main" id="bookingMain">
+    <section class="booking-form-section" id="step-booking-info">
+      <form id="bookingForm">
+        <div class="card">
+          <h2><i class="fa-solid fa-location-dot"></i> Destination & Dates</h2>
+          <div class="form-group">
+            <label>
+              <i class="fa-solid fa-plane"></i> Departure City
+              <select name="departureCity">
+                <option value="">Select departure</option>
+              </select>
+            </label>
+            <label>
+              <i class="fa-solid fa-location-arrow"></i> Destination City
+              <select name="destinationCity">
+                <option value="">Select destination</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group trip-type-group">
+            <span>Trip Type:</span>
+            <label><input type="radio" name="tripType" value="oneway" checked> One-way</label>
+            <label><input type="radio" name="tripType" value="roundtrip"> Round-trip</label>
+          </div>
+          <div class="form-group date-group">
+            <label><i class="fa-solid fa-calendar-days"></i> Departure Date
+              <input type="date" name="departureDate">
+            </label>
+            <label class="return-date-label"><i class="fa-solid fa-calendar-days"></i> Return Date
+              <input type="date" name="returnDate">
+            </label>
+          </div>
         </div>
-        <div class="footer-info">&copy; 2024 Travel Advisor. All rights reserved.</div>
-    </footer>
-    <script src="bookings.js"></script>
+
+        <div class="card">
+          <h2><i class="fa-solid fa-users"></i> Passengers & Class</h2>
+          <div class="form-group">
+            <label><i class="fa-solid fa-user"></i> Adults
+              <select name="adults">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
+            <label><i class="fa-solid fa-child"></i> Children
+              <select name="children">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </label>
+            <label><i class="fa-solid fa-baby"></i> Infants
+              <select name="infants">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-couch"></i> Class
+              <select name="travelClass">
+                <option value="economy">Economy</option>
+                <option value="business">Business</option>
+                <option value="first">First</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <aside class="booking-summary-section" id="bookingSummarySection">
+      <div class="card summary-card">
+        <h2><i class="fa-solid fa-receipt"></i> Booking Summary</h2>
+        <div class="summary-details" id="summaryDetails">
+          <!-- JS fills this -->
+        </div>
+        <div class="summary-total">
+          <span>Total Estimate:</span>
+          <span id="totalPrice">$0.00</span>
+        </div>
+        <button class="confirm-btn" id="confirmBookingBtn">Continue</button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Firebase App -->
+  <script type="module" src="bookings.js"></script>
 </body>
-</html> 
+</html>
