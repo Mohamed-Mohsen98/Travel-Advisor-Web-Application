@@ -19,21 +19,64 @@
                 <a href="home.html" class="nav-link">Home</a>
                 <a href="#" class="nav-link active">Destinations</a>
                 <a href="bookings.html" class="nav-link">Bookings</a>
+                <a href="#rate" class="nav-link">Rate</a>
             </nav>
             <div class="header-right">
-                <a href="#profile" class="header-icon" title="Profile"><i class="fa-regular fa-user"></i></a>
+                <a href="profile.html" class="header-icon" title="Profile"><i class="fa-regular fa-user"></i></a>
                 <a href="#logout" class="header-icon" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
             </div>
         </div>
     </header>
-
     <section class="gallery-section" style="margin-top:15px;">
         <h2>All Destinations</h2>
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- Cards will be dynamically injected here from Firebase -->
+        <div class="gallery-grid">
+            <div class="gallery-card">
+                <img src="photos/paris.png" alt="Paris" title="Paris">
+                <div class="gallery-label">Paris</div>
+                <a href="bookings.html?destination=Paris" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/rome.png" alt="Rome" title="Rome">
+                <div class="gallery-label">Rome</div>
+                <a href="bookings.html?destination=Rome" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/amsterdam.png" alt="Amsterdam" title="Amsterdam">
+                <div class="gallery-label">Amsterdam</div>
+                <a href="bookings.html?destination=Amsterdam" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/seoul.png" alt="Seoul" title="Seoul">
+                <div class="gallery-label">Seoul</div>
+                <a href="bookings.html?destination=Seoul" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/london.png" alt="London" title="London">
+                <div class="gallery-label">London</div>
+                <a href="bookings.html?destination=London" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/miami.png" alt="Miami" title="Miami">
+                <div class="gallery-label">Miami</div>
+                <a href="bookings.html?destination=Miami" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/tokyo.png" alt="Tokyo" title="Tokyo">
+                <div class="gallery-label">Tokyo</div>
+                <a href="bookings.html?destination=Tokyo" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/moscow.png" alt="Moscow" title="Moscow">
+                <div class="gallery-label">Moscow</div>
+                <a href="bookings.html?destination=Moscow" class="book-btn">Book Now</a>
+            </div>
+            <div class="gallery-card">
+                <img src="photos/barca.png" alt="Barcelona" title="Barcelona">
+                <div class="gallery-label">Barcelona</div>
+                <a href="bookings.html?destination=Barcelona" class="book-btn">Book Now</a>
+            </div>
         </div>
     </section>
-
     <footer class="main-footer">
         <div class="container footer-container">
             <div class="footer-left footer-brand">
@@ -52,8 +95,5 @@
         </div>
         <div class="footer-info">&copy; 2024 Travel Advisor. All rights reserved.</div>
     </footer>
-
-    <!-- Link to destinations.js -->
-    <script type="module" src="destinations.js"></script>
 </body>
-</html>
+</html> 
