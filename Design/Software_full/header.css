@@ -76,7 +76,6 @@
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
-.header-right .fa-user:hover,
 .header-right .fa-arrow-right-from-bracket:hover {
     background: #21795b;
     color: #fff;

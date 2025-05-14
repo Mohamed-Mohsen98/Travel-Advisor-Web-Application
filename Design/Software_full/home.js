@@ -1,3 +1,5 @@
+console.log("home.js loaded!");
+
 // Firebase setup
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
@@ -45,5 +47,61 @@ function displayTopCountries() {
     });
 }
 
+function displayReviews() {
+    console.log("displayReviews called!");
+    const reviewsBlock = document.querySelector('.reviews-block');
+    const usersRef = ref(database, "users");
+
+    onValue(usersRef, (snapshot) => {
+        const usersData = snapshot.val();
+        console.log("Fetched usersData:", usersData); // Log the raw data fetched from Firebase
+
+        if (!usersData) {
+            reviewsBlock.innerHTML = ""; // Show the :empty::before message
+            return;
+        }
+
+        // Collect all ratings from all users
+        let allRatings = [];
+        Object.entries(usersData).forEach(([userId, user]) => {
+            if (user.ratings) {
+                Object.values(user.ratings).forEach(rating => {
+                    allRatings.push({
+                        username: user.username || "Anonymous",
+                        comment: rating.comment || "",
+                        rating: rating.rating || 0,
+                        timestamp: rating.timestamp || ""
+                    });
+                });
+            }
+        });
+
+        console.log("All ratings:", allRatings); // Log the processed ratings array
+
+        // Sort by timestamp descending (latest first)
+        allRatings.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        // Render reviews
+        if (allRatings.length === 0) {
+            reviewsBlock.innerHTML = ""; // Show the :empty::before message
+        } else {
+            reviewsBlock.innerHTML = allRatings.map(r =>
+                `<div class="review-card">
+                    <div class="review-header">
+                        <span class="review-username">${r.username}</span>
+                        <span class="review-rating">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</span>
+                    </div>
+                    <div class="review-comment">${r.comment}</div>
+                    <div class="review-date">${new Date(r.timestamp).toLocaleString()}</div>
+                </div>`
+            ).join("");
+        }
+    }, (error) => {
+        console.error("Firebase onValue error:", error);
+    });
+}
 // Initialize
-document.addEventListener("DOMContentLoaded", displayTopCountries);
+document.addEventListener("DOMContentLoaded", () => {
+    displayTopCountries();
+    displayReviews();
+});

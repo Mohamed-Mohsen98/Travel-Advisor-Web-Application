@@ -19,9 +19,10 @@ body {
     z-index: 1100;
 }
 .header-left {
+    position: absolute;
+    left: 0;
     display: flex;
     align-items: center;
-    gap: 12px;
 }
 .header-left .fa-plane-departure {
     color: #fff;

@@ -67,16 +67,27 @@ class Login {
         const userData = userSnapshot.val();
         const userRole = userData.role;
 
+        // Store user ID in session storage
+        sessionStorage.setItem('userId', userId);
+        sessionStorage.setItem('isLoggedIn', 'true');
+
         popup.classList.remove("hidden");
 
         setTimeout(() => {
           popup.classList.add("hidden");
 
-          // Redirect based on role
-          if (userRole === "Admin") {
-            window.location.href = "admin.html";
+          // Check if there's a return URL
+          const returnUrl = sessionStorage.getItem('returnUrl');
+          if (returnUrl) {
+            sessionStorage.removeItem('returnUrl'); // Clear the return URL
+            window.location.href = returnUrl;
           } else {
-            window.location.href = "home.html";
+            // Default redirect based on role
+            if (userRole === "Admin") {
+              window.location.href = "admin.html";
+            } else {
+              window.location.href = "home.html";
+            }
           }
         }, 2000);
       } else {

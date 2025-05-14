@@ -251,4 +251,99 @@ body {
     justify-content: flex-end;
     gap: 16px;
     min-width: 120px;
+}
+
+.reviews-section {
+    background: #ededed;
+    padding: 64px 0 48px 0;
+    text-align: center;
+    border-radius: 18px;
+   
+    max-width: 1100px;
+    margin: 20px auto 0 auto;
+    min-height: 220px;
+}
+
+.reviews-section h2 {
+    text-align: center;
+    color: #21795b;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 36px;
+}
+.review-card {
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(33,121,91,0.10);
+    padding: 18px 24px 14px 24px;
+    margin-bottom: 18px;
+    width: 100%;
+    max-width: 500px;
+    text-align: left;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+}
+
+.review-card:hover {
+    box-shadow: 0 6px 24px rgba(33,121,91,0.18);
+    transform: translateY(-2px) scale(1.01);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.review-username {
+    font-weight: 600;
+    color: #21795b;
+    font-size: 1.1rem;
+}
+
+.review-rating {
+    color: #ffc107;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.review-comment {
+    color: #222;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    margin-top: 4px;
+    word-break: break-word;
+}
+
+.review-date {
+    color: #888;
+    font-size: 0.95rem;
+    text-align: right;
+}
+.reviews-block {
+    width: 100%;
+    max-width: 600px;
+    min-width: 320px;
+    min-height: 300px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(33,121,91,0.07);
+    padding: 32px 24px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    opacity: 1;
+    transition: opacity 0.2s;
+    gap: 8px;
+}
+
+.reviews-block:empty::before {
+    content: "No reviews yet. Be the first to leave a review!";
+    color: #888;
+    font-size: 1.1rem;
+    font-style: italic;
+    opacity: 0.7;
 } 
