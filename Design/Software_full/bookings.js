@@ -28,13 +28,11 @@ const db = getDatabase(app);
 const auth = getAuth(app);
 const destinationsRef = dbRef(db, 'destinations');
 
-// UI logic
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('bookingForm');
   const summaryDetails = document.getElementById('summaryDetails');
   const totalPrice = document.getElementById('totalPrice');
   const confirmBtn = document.getElementById('confirmBookingBtn');
-  const tripTypeRadios = form.elements['tripType'];
   const returnDateLabel = form.querySelector('.return-date-label');
   const stepBookingInfo = document.getElementById('step-booking-info');
   const bookingSummarySection = document.getElementById('bookingSummarySection');
@@ -44,43 +42,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let bookingData = {};
   let currentStep = 1;
-  let isPageInitialized = false;  // Track if the page has been initialized
 
-  // 🔁 Toggle return date visibility
+  // 🔁 Show/hide return date field
   function updateReturnDateVisibility() {
     const tripType = form.tripType.value;
     returnDateLabel.style.display = tripType === 'roundtrip' ? 'flex' : 'none';
-    if (tripType !== 'roundtrip') {
-      form.returnDate.value = '';
-    }
+    if (tripType !== 'roundtrip') form.returnDate.value = '';
   }
+
   form.tripType.forEach(r => r.addEventListener('change', updateReturnDateVisibility));
   updateReturnDateVisibility();
 
-  // 📝 Update summary
+  // 📝 Update Summary
   function updateSummary() {
     const depDate = new Date(form.departureDate.value);
     const retDate = new Date(form.returnDate.value);
+    const tripType = form.tripType.value;
 
-    // Validate return date only when user interacts with the form
-    if (form.tripType.value === 'roundtrip' && retDate <= depDate) {
+    if (tripType === 'roundtrip' && (!retDate || retDate <= depDate)) {
       alert("Return date must be after departure date.");
-      form.returnDate.value = ''; // Clear invalid return date
-      return; // Prevent summary update if dates are invalid
+      form.returnDate.value = '';
+      return;
     }
 
-    // Validate Departure City and Destination City only when user tries to proceed
-    if (form.departureCity.value === form.destinationCity.value) {
+    if (form.departureCity.value === form.destinationCity.value && form.departureCity.value !== '') {
       alert("Departure City and Destination City cannot be the same.");
-      // Reset destination city and focus on it
       form.destinationCity.value = '';
       form.destinationCity.focus();
-      return; // Prevent summary update if cities are the same
+      return;
     }
 
     const dep = form.departureCity.value || '-';
     const dest = form.destinationCity.value || '-';
-    const tripType = form.tripType.value;
     const adults = form.adults.value;
     const children = form.children.value;
     const infants = form.infants.value;
@@ -100,9 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tripType === 'roundtrip') price *= 1.8;
     totalPrice.textContent = `$${price.toFixed(2)}`;
   }
+
   form.addEventListener('input', updateSummary);
 
-  // 📍 Progress steps
+  // Progress Step
   function setStep(step) {
     progressSteps.forEach((el, idx) => {
       el.classList.toggle('active', idx === step - 1);
@@ -118,26 +112,44 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showStep2() {
-    // Ensure Departure City and Return Date are selected first
-    if (!form.departureCity.value || !form.returnDate.value) {
-      alert("Please select a departure city and return date before proceeding.");
-      return; // Don't proceed if these fields are missing
+    const tripType = form.tripType.value;
+
+    if (!form.departureCity.value) {
+      alert("Please select a departure city before proceeding.");
+      form.departureCity.focus();
+      return;
     }
 
-    // Validate Departure City and Destination City
+    if (!form.destinationCity.value) {
+      alert("Please select a destination city.");
+      form.destinationCity.focus();
+      return;
+    }
+
     if (form.departureCity.value === form.destinationCity.value) {
-      alert("Departure City and Destination City cannot be the same.");
-      // Reset destination city and force focus on destination field
+      alert("Departure and Destination City cannot be the same.");
       form.destinationCity.value = '';
       form.destinationCity.focus();
-      return; // Prevent proceeding if cities are the same
+      return;
+    }
+
+    if (!form.departureDate.value) {
+      alert("Please select a departure date.");
+      form.departureDate.focus();
+      return;
+    }
+
+    if (tripType === 'roundtrip' && !form.returnDate.value) {
+      alert("Please select a return date before procedding.");
+      form.returnDate.focus();
+      return;
     }
 
     bookingData = {
       departureCity: form.departureCity.value,
       destinationCity: form.destinationCity.value,
       departureDate: form.departureDate.value,
-      returnDate: form.returnDate.value,
+      returnDate: form.returnDate.value || '',
       tripType: form.tripType.value,
       adults: form.adults.value,
       children: form.children.value,
@@ -200,13 +212,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Continue button
   confirmBtn.addEventListener('click', function (e) {
     e.preventDefault();
     showStep2();
   });
 
-  // 🔽 Load cities from Firebase
+  // Load destinations
   get(destinationsRef)
     .then(snapshot => {
       const list = snapshot.val();
