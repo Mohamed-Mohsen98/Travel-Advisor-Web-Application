@@ -23,11 +23,12 @@ const database = getDatabase(app);
 const loginForm = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
+const emailError = document.getElementById("emailError");
+const passwordError = document.getElementById("passwordError");
+const firebaseError = document.getElementById("firebaseError");
+const loginSuccessPopup = document.getElementById("loginSuccessPopup");
 
 sessionStorage.setItem('isLoggedIn', 'true');
-
-
-const popup = document.getElementById("loginSuccessPopup");
 
 class Login {
   #email;
@@ -39,22 +40,38 @@ class Login {
   }
 
   validateMail() {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return this.#email && emailRegex.test(this.#email);
+    return this.#email && this.#email.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.#email);
   }
 
   validatePass() {
-    return this.#password && this.#password.length <= 60;
+    return this.#password && this.#password.length > 0 && this.#password.length <= 60;
   }
 
   async submit() {
-    if (!this.validateMail()) {
-      alert("Invalid or missing email.");
-      return;
+    // Clear previous errors
+    emailError.textContent = "";
+    passwordError.textContent = "";
+    firebaseError.textContent = "";
+
+    let isValid = true;
+
+    if (!this.#email || this.#email.trim() === "") {
+      emailError.textContent = "This field is required.";
+      isValid = false;
+    } else if (!this.validateMail()) {
+      emailError.textContent = "Please enter a valid email address.";
+      isValid = false;
     }
 
-    if (!this.validatePass()) {
-      alert("Invalid or missing password.");
+    if (!this.#password || this.#password.trim() === "") {
+      passwordError.textContent = "This field is required.";
+      isValid = false;
+    } else if (!this.validatePass()) {
+      passwordError.textContent = "Please enter a password."; // You might want a more specific message here
+      isValid = false;
+    }
+
+    if (!isValid) {
       return;
     }
 
@@ -71,10 +88,10 @@ class Login {
         sessionStorage.setItem('userId', userId);
         sessionStorage.setItem('isLoggedIn', 'true');
 
-        popup.classList.remove("hidden");
+        loginSuccessPopup.classList.remove("hidden");
 
         setTimeout(() => {
-          popup.classList.add("hidden");
+          loginSuccessPopup.classList.add("hidden");
 
           // Check if there's a return URL
           const returnUrl = sessionStorage.getItem('returnUrl');
@@ -91,22 +108,22 @@ class Login {
           }
         }, 2000);
       } else {
-        alert("User data not found in the database.");
+        firebaseError.textContent = "User data not found in the database.";
       }
     } catch (error) {
       console.error("Login error:", error);
       switch (error.code) {
         case "auth/user-not-found":
-          alert("User not found.");
+          firebaseError.textContent = "User not found.";
           break;
         case "auth/wrong-password":
-          alert("Incorrect password.");
+          firebaseError.textContent = "Incorrect password.";
           break;
         case "auth/too-many-requests":
-          alert("Too many failed attempts. Please try again later.");
+          firebaseError.textContent = "Too many failed attempts. Please try again later.";
           break;
         default:
-          alert("Login failed: " + error.message);
+          firebaseError.textContent = "Login failed ";
       }
     }
   }
