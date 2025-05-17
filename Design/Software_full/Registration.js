@@ -14,7 +14,7 @@ const firebaseConfig = {
   appId: "1:307821978887:web:71ce0fb2e25ed8fb0a51a2"
 };
 
-// Initialize Firebase services
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
@@ -29,7 +29,7 @@ class UserRegistrationForm {
         
         this.initializeEventListeners();
     }
-    
+
     initializeEventListeners() {
         this.usernameInput.addEventListener('input', () => this.validateUsername());
         this.emailInput.addEventListener('input', () => this.validateEmail());
@@ -41,7 +41,7 @@ class UserRegistrationForm {
             this.handleSubmit();
         });
     }
-    
+
     validateUsername() {
         const username = this.usernameInput.value.trim();
         const errorElement = document.getElementById('username-error');
@@ -57,7 +57,7 @@ class UserRegistrationForm {
         errorElement.textContent = '';
         return true;
     }
-    
+
     validateEmail() {
         const email = this.emailInput.value.trim();
         const errorElement = document.getElementById('email-error');
@@ -74,23 +74,30 @@ class UserRegistrationForm {
         errorElement.textContent = '';
         return true;
     }
-    
-    validatePassword() {
-        const password = this.passwordInput.value;
-        const errorElement = document.getElementById('password-error');
-        
-        if (!password) {
-            errorElement.textContent = 'This field is required.';
-            return false;
-        }
-        if (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-            errorElement.textContent = 'Invalid password. Your password must be at least 8 characters long and include at least one special character (e.g., ! @ # $ %).';
-            return false;
-        }
-        errorElement.textContent = '';
-        return true;
+
+   validatePassword() {
+    const password = this.passwordInput.value;
+    const errorElement = document.getElementById('password-error');
+
+    if (!password) {
+        errorElement.textContent = 'This field is required.';
+        return false;
     }
-    
+
+    const hasMinLength = password.length >= 8;
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasNoSpaces = !/\s/.test(password);
+
+    if (!hasMinLength || !hasSpecialChar || !hasNoSpaces) {
+        errorElement.textContent = 'Invalid password. Your password must be at least 8 characters long and include at least one special character (e.g., ! @ # $ %). Spaces within the password should not be accepted.';
+        return false;
+    }
+
+    errorElement.textContent = '';
+    return true;
+}
+
+
     confirmPassword() {
         const password = this.passwordInput.value;
         const confirmPassword = this.confirmPasswordInput.value;
@@ -107,45 +114,39 @@ class UserRegistrationForm {
         errorElement.textContent = '';
         return true;
     }
-    
+
     handleSubmit() {
         const isUsernameValid = this.validateUsername();
         const isEmailValid = this.validateEmail();
         const isPasswordValid = this.validatePassword();
         const isConfirmPasswordValid = this.confirmPassword();
-        
+
         if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
             this.submit();
         }
     }
-    
+
     async submit() {
         const username = this.usernameInput.value.trim();
         const email = this.emailInput.value.trim();
         const password = this.passwordInput.value;
 
         try {
-            // 1. Create authenticated user
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const userId = userCredential.user.uid;
 
-            // 2. Store additional user data
             await set(ref(database, 'users/' + userId), {
                 username: username,
                 email: email,
-                role: "User", // default role
+                role: "User",
                 createdAt: new Date().toISOString()
             });
 
             alert('Registration successful! Welcome to Travel Advisor.');
             this.form.reset();
-
-            // ✅ Redirect to homepage
-            window.location.href = "home.html";  // Change path as needed
-
+            window.location.href = "login.html";
         } catch (error) {
             console.error('Registration error:', error);
-
             if (error.code === 'auth/email-already-in-use') {
                 document.getElementById('email-error').textContent = 'This email is already registered.';
             } else {
@@ -155,7 +156,6 @@ class UserRegistrationForm {
     }
 }
 
-// Initialize the form when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new UserRegistrationForm();
 });
