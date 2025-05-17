@@ -142,8 +142,8 @@ class UserRegistrationForm {
                 createdAt: new Date().toISOString()
             });
 
-            alert('Registration successful! Welcome to Travel Advisor.');
-            this.form.reset();
+            // alert('Registration successful! Welcome to Travel Advisor.');
+            // this.form.reset();
             window.location.href = "login.html";
         } catch (error) {
             console.error('Registration error:', error);
